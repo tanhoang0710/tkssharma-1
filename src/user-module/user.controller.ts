@@ -6,13 +6,13 @@ import {
   Get,
   Param,
   Post,
-  UseFilters,
-  UsePipes,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './interface/user';
 import { UserDto, UserParamDto } from './dto/user.dto';
-import { HttpExceptionFilter } from './filters';
+import { AuthGuard } from './guard/index.guard';
+import { Roles } from './guard/roles.decorator';
 
 @Controller('users')
 export class UserController {
@@ -24,7 +24,9 @@ export class UserController {
   }
 
   @Get(':email')
-  @UseFilters(new HttpExceptionFilter())
+  @UseGuards(AuthGuard)
+  @Roles('admin')
+  // @UseFilters(new HttpExceptionFilter())
   async getUser(@Param() params: UserParamDto): Promise<User> {
     try {
       return await this.userService.getUser(params.email);

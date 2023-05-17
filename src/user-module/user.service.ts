@@ -3,17 +3,16 @@ import { User } from './interface/user';
 
 @Injectable()
 export class UserService {
-  public users: User[] = [];
+  public users: User[] = [{ username: '123', email: 'tanhoang0710@gmail.com' }];
 
   getUsers(): User[] {
     return this.users;
   }
 
   async getUser(email: string): Promise<User> {
-    const userData = this.users.find((user) => user.email === email);
+    const userData = this.users[0];
 
-    if (userData && Array.isArray(userData) && userData.length > 0)
-      return Promise.resolve(userData[0]);
+    if (userData) return Promise.resolve(userData);
     throw new NotFoundException('User not found!');
   }
 
