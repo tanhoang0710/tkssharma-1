@@ -22,19 +22,16 @@ export class UserController {
   }
 
   @Get(':email')
-  @UsePipes(new ValidationPipe())
   getUser(@Param() params: UserParamDto) {
     return this.userService.getUser(params.email);
   }
 
   @Post()
-  @UsePipes(new ValidationPipe())
   postUser(@Body() user: UserDto): User {
     return this.userService.addUser(user);
   }
 
   @Delete(':email')
-  @UsePipes(new ValidationPipe())
   deleteUser(@Param() params: UserParamDto) {
     return this.userService.deleteUser(params.email);
   }
