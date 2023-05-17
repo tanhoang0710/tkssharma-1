@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   UseFilters,
+  UsePipes,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './interface/user';
@@ -33,6 +34,7 @@ export class UserController {
   }
 
   @Post()
+  // @UsePipes(new JoiValidationPipe(UserSchema))
   postUser(@Body() user: UserDto): User {
     return this.userService.addUser(user);
   }
