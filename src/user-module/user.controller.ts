@@ -7,13 +7,16 @@ import {
   Param,
   Post,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './interface/user';
 import { UserDto, UserParamDto } from './dto/user.dto';
 import { AuthGuard } from './guard/index.guard';
 import { Roles } from './guard/roles.decorator';
+import { LoggingInterceptor } from './interceptor';
 
+@UseInterceptors(LoggingInterceptor)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
