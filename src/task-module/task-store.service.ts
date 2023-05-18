@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Task } from './interface/task';
 
 @Injectable()
@@ -12,7 +12,8 @@ export class TaskStoreService {
 
   public async getTask(id: string): Promise<Task> {
     const task = this.tasks.filter((task) => task.id === id);
-    return this.tasks[0];
+    if (task && task.length > 0) return Promise.resolve(task[0]);
+    else throw new NotFoundException('Task not found!');
   }
 
   public async deleteTask(id: string): Promise<Task[]> {
