@@ -7,6 +7,9 @@ export class TaskService {
   constructor(private readonly taskStoreService: TaskStoreService) {}
 
   public async addTask(task: Task): Promise<Task> {
+    task.id = Math.floor(Math.random() * 50).toString();
+    task.completed = false;
+    (task.description = 'dummy'), (task.duration = 2);
     return this.taskStoreService.addTask(task);
   }
 
