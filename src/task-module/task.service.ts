@@ -17,6 +17,10 @@ export class TaskService {
     return this.taskStoreService.getTask(id);
   }
 
+  public async deleteTask(id: string): Promise<Task[]> {
+    return this.taskStoreService.deleteTask(id);
+  }
+
   public async getAllTask(): Promise<Task[]> {
     return this.taskStoreService.getAllTasks();
   }

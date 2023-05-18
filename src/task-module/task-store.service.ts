@@ -12,7 +12,13 @@ export class TaskStoreService {
 
   public async getTask(id: string): Promise<Task> {
     const task = this.tasks.filter((task) => task.id === id);
-    return task[0];
+    return this.tasks[0];
+  }
+
+  public async deleteTask(id: string): Promise<Task[]> {
+    const newTasks = this.tasks.filter((task) => task.id !== id);
+    this.tasks = [...newTasks];
+    return this.tasks;
   }
 
   public async getAllTasks(): Promise<Task[]> {

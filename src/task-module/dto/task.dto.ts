@@ -6,3 +6,9 @@ export class TaskDto {
   @IsString()
   name: string;
 }
+
+export class TaskParamDto {
+  @IsString()
+  @IsDefined()
+  id: string;
+}
