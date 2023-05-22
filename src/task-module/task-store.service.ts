@@ -25,4 +25,8 @@ export class TaskStoreService {
   public async getAllTasks(): Promise<Task[]> {
     return this.tasks;
   }
+
+  public async filterTaskById(id: string): Promise<Task[]> {
+    return this.tasks.filter((task) => task.id === id);
+  }
 }

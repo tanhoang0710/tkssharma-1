@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseBoolPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { TaskService } from './task.service';
 import { Task } from './interface/task';
 import { TaskDto, TaskParamDto } from './dto/task.dto';
@@ -26,5 +35,14 @@ export class TaskController {
   async createTask(@Body() createTaskDto: TaskDto) {
     const data = await this.taskService.addTask(createTaskDto);
     return data;
+  }
+
+  @Get('/filter')
+  async filterTaskById(@Query('filter') filter: ParseBoolPipe) {
+    console.log(
+      '🚀 ~ file: task.controller.ts:42 ~ TaskController ~ filterTaskById ~ param.filter:',
+      filter,
+    );
+    return await this.taskService.filterTaskById(filter ? '1' : '2');
   }
 }
