@@ -3,7 +3,16 @@ import { Task } from './interface/task';
 
 @Injectable()
 export class TaskStoreService {
-  public tasks: Task[] = [];
+  public tasks: Task[] = [
+    {
+      name: '123',
+      completed: false,
+      description: '123',
+      duration: 1,
+      id: '1',
+      owner: 'tanhun',
+    },
+  ];
 
   public async addTask(task: Task): Promise<Task> {
     this.tasks.push(task);
