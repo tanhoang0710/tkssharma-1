@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Customer } from '../interface/customer.interface';
+import { CreateCustomerDto } from '../dto';
 
 @Injectable()
 export class CustomerService {
@@ -14,16 +15,22 @@ export class CustomerService {
     return customers;
   }
 
-  public async createCustomer(customer: any): Promise<Customer> {
+  public async createCustomer(customer: CreateCustomerDto): Promise<Customer> {
     return await this.customerModel.create(customer);
   }
 
-  public async updateCustomer(id: string, customer: any): Promise<Customer> {
-    let customerDoc = await this.customerModel.findById(customer);
-    if (customerDoc) {
-      customerDoc = { ...customer };
-      await customerDoc.save();
-    }
+  public async updateCustomer(
+    id: string,
+    customer: CreateCustomerDto,
+  ): Promise<Customer> {
+    const customerDoc = await this.customerModel.findByIdAndUpdate(
+      id,
+      customer,
+      {
+        new: true,
+      },
+    );
+
     return customerDoc;
   }
 

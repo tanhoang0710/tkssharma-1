@@ -4,11 +4,12 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
 } from '@nestjs/common';
 import { Customer } from '../interface/customer.interface';
 import { CustomerService } from '../service/customer.service';
+import { CreateCustomerDto } from '../dto';
 
 @Controller('customers')
 export class CustomerController {
@@ -29,11 +30,16 @@ export class CustomerController {
     return await this.customerService.deleteCustomer(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   async updateCustomerById(
     @Param('id') id: string,
     @Body() body: any,
   ): Promise<Customer> {
     return await this.customerService.updateCustomer(id, body);
+  }
+
+  @Post()
+  async createCustomer(@Body() body: CreateCustomerDto) {
+    return await this.customerService.createCustomer(body);
   }
 }
