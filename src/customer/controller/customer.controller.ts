@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { Customer } from '../interface/customer.interface';
 import { CustomerService } from '../service/customer.service';
-import { CreateCustomerDto } from '../dto';
+import { CreateCustomerDto, DeleteCustomerDto } from '../dto';
 
 @Controller('customers')
 export class CustomerController {
@@ -21,7 +21,7 @@ export class CustomerController {
   }
 
   @Get(':id')
-  async getCustomerById(@Param('id') id: string): Promise<Customer> {
+  async getCustomerById(@Param('id') id: DeleteCustomerDto): Promise<Customer> {
     return await this.customerService.getCustomer(id);
   }
 

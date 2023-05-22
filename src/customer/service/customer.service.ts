@@ -1,8 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Customer } from '../interface/customer.interface';
-import { CreateCustomerDto } from '../dto';
+import { CreateCustomerDto, DeleteCustomerDto } from '../dto';
 
 @Injectable()
 export class CustomerService {
@@ -38,8 +42,13 @@ export class CustomerService {
     return await this.customerModel.findByIdAndRemove(id);
   }
 
-  public async getCustomer(id: string): Promise<Customer> {
-    const customer = await this.customerModel.findById(id);
-    return customer;
+  public async getCustomer(id: DeleteCustomerDto): Promise<Customer> {
+    try {
+      const customer = await this.customerModel.findById(id);
+      if (!customer) throw new NotFoundException('Customer not found!');
+      return customer;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }

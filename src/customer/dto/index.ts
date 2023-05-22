@@ -1,4 +1,4 @@
-import { IsDefined, IsEmail } from 'class-validator';
+import { IsDefined, IsEmail, IsMongoId } from 'class-validator';
 
 export class CreateCustomerDto {
   readonly first_name: string;
@@ -10,4 +10,9 @@ export class CreateCustomerDto {
   readonly phone: string;
   readonly address: string;
   readonly description: string;
+}
+
+export class DeleteCustomerDto {
+  @IsMongoId()
+  id: string;
 }
